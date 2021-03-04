@@ -22,13 +22,33 @@ const domHandler = (function domHandler() {
 const formHandler = (function formHandler() {
   function validateForm(query) {
     if (query === '') {
-      alert('Please enter a city name');
+      return false;
     }
+    return true;
   }
 
-  function searchCityForm() {
+  const displayController = (function displayController() {
+    function renderSearch(results) {
+      const container = domHandler.getElement('#search-results');
+      container.innerText = '';
+      for (let i = 0; i < results.length; i += 1) {
+        const result = document.createElement('div');
+        result.setAttribute('data-id', `${i}`);
+        result.innerText = results[i].formatted;
+        container.appendChild(result);
+      }
+    }
+
+    return { renderSearch };
+  }());
+
+  async function searchCityForm() {
     const input = domHandler.getElement('#search-input').value;
-    validateForm(input);
+    const valid = validateForm(input);
+    if (valid) {
+      const locations = await getLocations(input);
+      displayController.renderSearch(locations);
+    }
   }
 
   return { searchCityForm };
