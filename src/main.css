@@ -1,0 +1,22 @@
+:root {
+    --kombu-green: #3C493F;
+    --xanadu: #7E8D85;
+    --ash-grey: #B3BFB8;
+    --mint-cream: #F0F7F4;
+}
+
+body {
+    background-color: var(--mint-cream);
+}
+
+header .upper {
+    background-color: var(--kombu-green);
+    text-align: center;
+}
+
+header .lower {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--xanadu);
+}
