@@ -1,4 +1,6 @@
 import './main.css';
 import getWeather from './app/weather';
+import getLocations from './app/geocoding';
 
-getWeather('Samobor').then((data) => console.log(data));
+const locations = getLocations('Springfield');
+console.log(locations);
