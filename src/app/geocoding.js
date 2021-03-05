@@ -27,7 +27,7 @@ async function getLocations(query) {
   }
 
   const locations = await fetchData();
-  const filteredLocations = filterResults(locations, ['city', 'village', 'neighbourhood']);
+  const filteredLocations = filterResults(locations, ['city', 'village']);
   // display(filteredLocations); // Remove after testing
   return filteredLocations;
 }
