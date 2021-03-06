@@ -11,12 +11,12 @@ const domHandler = (function domHandler() {
     return element;
   }
 
-  function addClickEventToButton(selector, callback) {
+  function addClickEventToElement(selector, callback) {
     const button = body.querySelector(selector);
     button.addEventListener('click', callback);
   }
 
-  return { getElement, addClickEventToButton };
+  return { getElement, addClickEventToElement };
 }());
 
 const displayController = (function displayController() {
@@ -110,7 +110,7 @@ const formHandler = (function formHandler() {
 
 function init() {
   console.log('initialized');
-  domHandler.addClickEventToButton('#search-btn', formHandler.searchCityForm);
+  domHandler.addClickEventToElement('#search-btn', formHandler.searchCityForm);
 }
 
 init();
