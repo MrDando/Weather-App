@@ -92,7 +92,8 @@ const formHandler = (function formHandler() {
     const input = document.getElementById('search-input').value;
     const valid = validateForm(input);
     if (valid) {
-      const locations = await getLocations(input);
+      const apiKey = '8f6b0328053f4228ab88381794a2a47f';
+      const locations = await getLocations(apiKey, input, ['city', 'village']);
       results = locations;
       PubSub.publish('RENDER SEARCH RESULTS', locations);
     }

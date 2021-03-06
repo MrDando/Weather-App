@@ -1,6 +1,5 @@
-async function getLocations(query) {
+async function getLocations(apiKey, query, filters = null) {
   async function fetchData() {
-    const apiKey = '8f6b0328053f4228ab88381794a2a47f';
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${apiKey}&no_annotations=1`;
 
     const response = await fetch(url);
@@ -19,17 +18,13 @@ async function getLocations(query) {
     });
     return filtered;
   }
-  // Test function. Remove after testing
-  function display(arr) {
-    arr.forEach((element) => {
-      console.log(element.formatted);
-    });
-  }
 
   const locations = await fetchData();
-  const filteredLocations = filterResults(locations, ['city', 'village']);
-  // display(filteredLocations); // Remove after testing
-  return filteredLocations;
+  if (filters) {
+    const filteredLocations = filterResults(locations, ['city', 'village']);
+    return filteredLocations;
+  }
+  return locations;
 }
 
 export { getLocations as default };
