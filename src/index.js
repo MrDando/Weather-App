@@ -2,7 +2,7 @@ import './styles/reset.css';
 import './styles/main.css';
 import PubSub from 'pubsub-js';
 import getWeather from './app/weather';
-import getLocations from './app/geocoding';
+import formHandler from './app/formHandler';
 
 const displayController = (function displayController() {
   function renderSearch(title, results) {
@@ -76,36 +76,6 @@ const displayController = (function displayController() {
     results.forEach((item) => formatResult(item));
   }
   PubSub.subscribe('RENDER SEARCH RESULTS', renderSearch);
-}());
-
-const formHandler = (function formHandler() {
-  let results = [];
-
-  function validateForm(query) {
-    if (query === '') {
-      return false;
-    }
-    return true;
-  }
-
-  async function searchForm() {
-    const input = document.getElementById('search-input').value;
-    const valid = validateForm(input);
-    if (valid) {
-      const apiKey = '8f6b0328053f4228ab88381794a2a47f';
-      const locations = await getLocations(apiKey, input, ['city', 'village']);
-      results = locations;
-      PubSub.publish('RENDER SEARCH RESULTS', locations);
-    }
-  }
-
-  function selectLocation(title, data) {
-    const { id } = data.dataset;
-    const location = results[id];
-    console.log(location); // Test line
-  }
-  PubSub.subscribe('LOCATION SELECTED', selectLocation);
-  return { searchForm };
 }());
 
 function init() {
