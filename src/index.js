@@ -3,25 +3,10 @@ import './styles/main.css';
 import getWeather from './app/weather';
 import getLocations from './app/geocoding';
 
-const domHandler = (function domHandler() {
-  const body = document.querySelector('body');
-
-  function getElement(selector) {
-    const element = body.querySelector(selector);
-    return element;
-  }
-
-  function addClickEventToElement(selector, callback) {
-    const button = body.querySelector(selector);
-    button.addEventListener('click', callback);
-  }
-
-  return { getElement, addClickEventToElement };
-}());
-
 const displayController = (function displayController() {
   function renderSearch(results) {
-    const container = domHandler.getElement('#search-results');
+    const container = document.getElementById('search-results');
+
     container.innerText = '';
     console.log(results); // for testing
 
@@ -112,7 +97,7 @@ const formHandler = (function formHandler() {
   }
 
   async function searchCityForm() {
-    const input = domHandler.getElement('#search-input').value;
+    const input = document.getElementById('search-input').value;
     const valid = validateForm(input);
     if (valid) {
       const locations = await getLocations(input);
@@ -133,7 +118,8 @@ const formHandler = (function formHandler() {
 
 function init() {
   console.log('initialized');
-  domHandler.addClickEventToElement('#search-btn', formHandler.searchCityForm);
+  const button = document.getElementById('search-btn');
+  button.addEventListener('click', formHandler.searchCityForm);
 }
 
 init();
