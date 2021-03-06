@@ -1,20 +1,25 @@
 import './styles/reset.css';
 import './styles/main.css';
+import PubSub from 'pubsub-js';
 import getWeather from './app/weather';
 import getLocations from './app/geocoding';
 
 const displayController = (function displayController() {
-  function renderSearch(results) {
+  function renderSearch(title, results) {
     const container = document.getElementById('search-results');
 
     container.innerText = '';
     console.log(results); // for testing
 
+    function selectLocation() {
+      PubSub.publish('LOCATION SELECTED', this);
+    }
+
     function formatResult(result) {
       const resultElement = document.createElement('div');
       resultElement.setAttribute('data-id', results.indexOf(result));
       resultElement.classList.add('result');
-      resultElement.addEventListener('click', formHandler.selectLocation);
+      resultElement.addEventListener('click', selectLocation);
 
       const topDivElement = document.createElement('div');
       const bottomDivElement = document.createElement('div');
@@ -70,20 +75,11 @@ const displayController = (function displayController() {
 
     results.forEach((item) => formatResult(item));
   }
-
-  return { renderSearch };
+  PubSub.subscribe('RENDER SEARCH RESULTS', renderSearch);
 }());
 
 const formHandler = (function formHandler() {
   let results = [];
-
-  function setSearchResults(data) {
-    results = data;
-  }
-
-  function getSearchResults() {
-    return results;
-  }
 
   function validateForm(query) {
     if (query === '') {
@@ -92,30 +88,29 @@ const formHandler = (function formHandler() {
     return true;
   }
 
-  async function searchCityForm() {
+  async function searchForm() {
     const input = document.getElementById('search-input').value;
     const valid = validateForm(input);
     if (valid) {
       const locations = await getLocations(input);
-      setSearchResults(locations);
-      displayController.renderSearch(locations);
+      results = locations;
+      PubSub.publish('RENDER SEARCH RESULTS', locations);
     }
   }
 
-  function selectLocation() {
-    const { id } = this.dataset;
-    const locations = getSearchResults();
-    const location = locations[id];
+  function selectLocation(title, data) {
+    const { id } = data.dataset;
+    const location = results[id];
     console.log(location); // Test line
   }
-
-  return { searchCityForm, selectLocation };
+  PubSub.subscribe('LOCATION SELECTED', selectLocation);
+  return { searchForm };
 }());
 
 function init() {
   console.log('initialized');
   const button = document.getElementById('search-btn');
-  button.addEventListener('click', formHandler.searchCityForm);
+  button.addEventListener('click', formHandler.searchForm);
 }
 
 init();
