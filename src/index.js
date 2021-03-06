@@ -29,6 +29,7 @@ const displayController = (function displayController() {
       const resultElement = document.createElement('div');
       resultElement.setAttribute('data-id', results.indexOf(result));
       resultElement.classList.add('result');
+      resultElement.addEventListener('click', formHandler.selectLocation);
 
       const topDivElement = document.createElement('div');
       const bottomDivElement = document.createElement('div');
@@ -88,6 +89,20 @@ const displayController = (function displayController() {
   return { renderSearch };
 }());
 
+const itemHandler = (function itemHandler() {
+  let results = [];
+
+  function setSearchResults(data) {
+    results = data;
+  }
+
+  function getSearchResults() {
+    return results;
+  }
+
+  return { setSearchResults, getSearchResults };
+}());
+
 const formHandler = (function formHandler() {
   function validateForm(query) {
     if (query === '') {
@@ -101,11 +116,19 @@ const formHandler = (function formHandler() {
     const valid = validateForm(input);
     if (valid) {
       const locations = await getLocations(input);
+      itemHandler.setSearchResults(locations);
       displayController.renderSearch(locations);
     }
   }
 
-  return { searchCityForm };
+  function selectLocation() {
+    const { id } = this.dataset;
+    const locations = itemHandler.getSearchResults();
+    const location = locations[id];
+    console.log(location); // Test line
+  }
+
+  return { searchCityForm, selectLocation };
 }());
 
 function init() {
