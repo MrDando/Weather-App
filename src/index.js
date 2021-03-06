@@ -74,7 +74,7 @@ const displayController = (function displayController() {
   return { renderSearch };
 }());
 
-const itemHandler = (function itemHandler() {
+const formHandler = (function formHandler() {
   let results = [];
 
   function setSearchResults(data) {
@@ -85,10 +85,6 @@ const itemHandler = (function itemHandler() {
     return results;
   }
 
-  return { setSearchResults, getSearchResults };
-}());
-
-const formHandler = (function formHandler() {
   function validateForm(query) {
     if (query === '') {
       return false;
@@ -101,14 +97,14 @@ const formHandler = (function formHandler() {
     const valid = validateForm(input);
     if (valid) {
       const locations = await getLocations(input);
-      itemHandler.setSearchResults(locations);
+      setSearchResults(locations);
       displayController.renderSearch(locations);
     }
   }
 
   function selectLocation() {
     const { id } = this.dataset;
-    const locations = itemHandler.getSearchResults();
+    const locations = getSearchResults();
     const location = locations[id];
     console.log(location); // Test line
   }
