@@ -5,7 +5,6 @@ const displayController = (function displayController() {
     const container = document.getElementById('search-results');
 
     container.innerText = '';
-    console.log(results); // for testing
 
     function selectLocation() {
       PubSub.publish('LOCATION SELECTED', this);
@@ -71,7 +70,35 @@ const displayController = (function displayController() {
 
     results.forEach((item) => formatResult(item));
   }
+
+  function renderWeather(title, data) {
+    const location = data[0];
+    const weatherData = data[1];
+
+    function renderCurrentWeather() {
+      const currentWeather = weatherData.current;
+      console.log(currentWeather); // testing
+    }
+
+    function renderDailyWeather() {
+      const dailyWeather = weatherData.daily;
+      console.log(dailyWeather); // testing
+    }
+
+    function convertUnixTime(unixTimestamp) {
+      const date = new Date(unixTimestamp * 1000);
+      const hours = date.getHours();
+      const minutes = `0${date.getMinutes()}`;
+      const seconds = `0${date.getSeconds()}`;
+      const formattedTime = `${hours}:${minutes.substr(-2)}:${seconds.substr(-2)}`;
+
+      return (formattedTime);
+    }
+    renderCurrentWeather();
+    renderDailyWeather();
+  }
   PubSub.subscribe('RENDER SEARCH RESULTS', renderSearch);
+  PubSub.subscribe('RENDER WEATHER DATA', renderWeather);
 }());
 
 export { displayController as default };
