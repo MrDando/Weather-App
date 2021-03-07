@@ -1,5 +1,6 @@
 import PubSub from 'pubsub-js';
 import getLocations from './geocoding';
+import getWeather from './weather';
 
 const formHandler = (function formHandler() {
   let results = [];
@@ -22,12 +23,16 @@ const formHandler = (function formHandler() {
     }
   }
 
-  function selectLocation(title, data) {
+  async function requestWeather(title, data) {
     const { id } = data.dataset;
     const location = results[id];
-    console.log(location); // Test line
+    const { lat } = location.geometry;
+    const { lng } = location.geometry;
+    const apiKey = '7e82125835d749e0e51d3420e0cdf1ed';
+    const weatherData = await getWeather(apiKey, lat, lng, 'metric');
+    PubSub.publish('RENDER WEATHER DATA', [location, weatherData]);
   }
-  PubSub.subscribe('LOCATION SELECTED', selectLocation);
+  PubSub.subscribe('LOCATION SELECTED', requestWeather);
   return { searchForm };
 }());
 

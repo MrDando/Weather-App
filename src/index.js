@@ -1,7 +1,6 @@
 import './styles/reset.css';
 import './styles/main.css';
 import PubSub from 'pubsub-js';
-import getWeather from './app/weather';
 import formHandler from './app/formHandler';
 import displayController from './app/displayController';
 
