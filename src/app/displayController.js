@@ -1,12 +1,24 @@
 import PubSub from 'pubsub-js';
 
 const displayController = (function displayController() {
+  function getName(location) {
+    const types = ['city', 'town', 'village', 'hamlet'];
+    let locationName;
+    types.forEach((type) => {
+      if (location.components.hasOwnProperty(type)) {
+        locationName = location.components[type];
+      }
+    });
+    return locationName;
+  }
+
   function renderSearch(title, results) {
     const container = document.getElementById('search-results');
 
     container.innerText = '';
 
     function selectLocation() {
+      container.innerText = '';
       PubSub.publish('LOCATION SELECTED', this);
     }
 
@@ -23,17 +35,6 @@ const displayController = (function displayController() {
       const nameElement = document.createElement('h3');
       const typeElement = document.createElement('p');
       const descriptionElement = document.createElement('p');
-
-      function getName() {
-        const types = ['city', 'town', 'village', 'hamlet'];
-        let locationName;
-        types.forEach((type) => {
-          if (result.components.hasOwnProperty(type)) {
-            locationName = result.components[type];
-          }
-        });
-        return locationName;
-      }
 
       function getDescription() {
         let description;
@@ -54,7 +55,7 @@ const displayController = (function displayController() {
         return description;
       }
 
-      nameElement.innerText = getName();
+      nameElement.innerText = getName(result);
       typeElement.innerText = result.components._type;
       descriptionElement.innerText = getDescription();
 
@@ -76,8 +77,52 @@ const displayController = (function displayController() {
     const weatherData = data[1];
 
     function renderCurrentWeather() {
+      const container = document.getElementById('current-weather-container');
       const currentWeather = weatherData.current;
-      console.log(currentWeather); // testing
+      console.log(currentWeather);
+
+      function renderLocationName() {
+        const nameElement = document.getElementById('location-name');
+        nameElement.innerText = getName(location);
+      }
+
+      function renderWeatherIcon() {
+        const imageDivElement = container.querySelector('.icon');
+        const currentWeatherIcon = currentWeather.weather[0].icon;
+        const imageElement = document.createElement('img');
+        imageDivElement.appendChild(imageElement);
+      }
+
+      function renderTemperature() {
+        const exactTemperatureDiv = container.querySelector('.exact');
+        exactTemperatureDiv.innerText = '';
+        const feelslikeTemperatureDiv = container.querySelector('.feels-like');
+        feelslikeTemperatureDiv.innerText = '';
+        const exactTemperatureElement = document.createElement('p');
+        const feelslikeTemperatureElement = document.createElement('p');
+
+        const temperature = Math.round(currentWeather.temp);
+        const feelsLike = Math.round(currentWeather.feels_like);
+        exactTemperatureElement.innerText = temperature;
+        feelslikeTemperatureElement.innerText = feelsLike;
+
+        exactTemperatureDiv.appendChild(exactTemperatureElement);
+        feelslikeTemperatureDiv.appendChild(feelslikeTemperatureElement);
+      }
+
+      function renderPrecipitation() {
+
+      }
+
+      function renderWind() {
+
+      }
+
+      renderLocationName();
+      renderWeatherIcon();
+      renderTemperature();
+      renderPrecipitation();
+      renderWind();
     }
 
     function renderDailyWeather() {
@@ -95,7 +140,7 @@ const displayController = (function displayController() {
       return (formattedTime);
     }
     renderCurrentWeather();
-    renderDailyWeather();
+    // renderDailyWeather();
   }
   PubSub.subscribe('RENDER SEARCH RESULTS', renderSearch);
   PubSub.subscribe('RENDER WEATHER DATA', renderWeather);
