@@ -86,11 +86,29 @@ const displayController = (function displayController() {
         nameElement.innerText = getName(location);
       }
 
-      function renderWeatherIcon() {
+      function renderWeather() {
+        function importAll(r) {
+          const images = {};
+          r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+          return images;
+        }
+
         const imageDivElement = container.querySelector('.icon');
-        const currentWeatherIcon = currentWeather.weather[0].icon;
+        imageDivElement.innerText = '';
+
         const imageElement = document.createElement('img');
+        const descriptionDivElement = container.querySelector('.description');
+        const descriptionElement = document.createElement('p');
+
+        const currentWeatherIcon = `${currentWeather.weather[0].icon}.svg`;
+        const images = importAll(require.context('./assets/svg/weather', false, /\.(png|jpe?g|svg)$/));
+        const image = images[currentWeatherIcon];
+        imageElement.src = image.default;
+
+        descriptionElement.innerText = currentWeather.weather[0].description;
+
         imageDivElement.appendChild(imageElement);
+        descriptionDivElement.appendChild(descriptionElement);
       }
 
       function renderTemperature() {
@@ -119,7 +137,7 @@ const displayController = (function displayController() {
       }
 
       renderLocationName();
-      renderWeatherIcon();
+      renderWeather();
       renderTemperature();
       renderPrecipitation();
       renderWind();

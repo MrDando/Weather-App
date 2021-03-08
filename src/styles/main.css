@@ -95,33 +95,41 @@ main {
     background-color: var(--mint-cream);
 }
 
-.weather-current {
+#current-weather-container {
     background-color:#B3BFB8;
     width: 60vw
 }
 
-.weather-current .info {
+#current-weather-container .info {
     padding: 0.5em 1em;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 }
 
-.info h2 {
+#current-weather-container .info h2 {
     font-size: 24px;
 }
 
-.info .name {
+#current-weather-container .info .name {
     flex: 1;
     text-align: center;
 }
 
-.info .conditions {
+#current-weather-container .info .conditions {
     margin-right: 0;
     margin-left: auto;
 }
 
-.weather img {
+#current-weather-container .flex {
+    display: flex;
+}
+
+#current-weather-container img {
     height: 100px;
     width:  100px;
+}
+
+#current-weather-container .description {
+    text-align: center;
 }
