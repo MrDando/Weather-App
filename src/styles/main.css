@@ -96,21 +96,32 @@ main {
 }
 
 .weather-current {
-    background-color: aqua;
-    width: 40vw
+    background-color:#B3BFB8;
+    width: 60vw
 }
 
 .weather-current .info {
     padding: 0.5em 1em;
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
 }
 
 .info h2 {
     font-size: 24px;
 }
 
-.info p {
-    margin-right: 3em;
+.info .name {
+    flex: 1;
+    text-align: center;
+}
+
+.info .conditions {
+    margin-right: 0;
     margin-left: auto;
+}
+
+.weather img {
+    height: 100px;
+    width:  100px;
 }
