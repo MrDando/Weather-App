@@ -100,6 +100,16 @@ main {
     background-color: var(--mint-cream);
 }
 
+.weather img {
+    height: 100px;
+    width: 100px;
+}
+
+img.small-img {
+    height: 40px;
+    width: auto;
+}
+
 #current-weather-container {
     background-color:#B3BFB8;
     width: 60vw;
@@ -122,11 +132,6 @@ main {
 #current-weather-container .info .conditions {
     margin-right: 0;
     margin-left: auto;
-}
-
-#current-weather-container img {
-    height: 100px;
-    width:  100px;
 }
 
 #current-weather-container .exact{

@@ -144,7 +144,13 @@ const displayController = (function displayController() {
       }
 
       function renderWind() {
+        const windElement = container.querySelector('.wind .value span');
+        const windSpeed = `${Math.round(currentWeather.wind_speed)} m/s`;
+        windElement.innerText = windSpeed;
 
+        const windDirectionImage = container.querySelector('.wind .value img');
+        const windDirection = currentWeather.wind_deg;
+        windDirectionImage.setAttribute('style', `transform: rotate(${windDirection}deg)`);
       }
 
       renderLocationName();
