@@ -19,6 +19,15 @@ body {
     width: inherit;
 }
 
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.column {
+    flex-direction: column;
+}
+
 header .upper {
     background-color: var(--kombu-green);
     text-align: center;
@@ -28,8 +37,6 @@ header .upper {
 }
 
 header .lower {
-    display: flex;
-    align-items: center;
     padding: 1em;
     background-color: var(--xanadu);
 }
@@ -70,8 +77,6 @@ header .lower {
 }
 
 .top {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 
@@ -97,13 +102,12 @@ main {
 
 #current-weather-container {
     background-color:#B3BFB8;
-    width: 60vw
+    width: 60vw;
+    text-align: center;
 }
 
 #current-weather-container .info {
     padding: 0.5em 1em;
-    display: flex;
-    align-items: center;
     justify-content: space-evenly;
 }
 
@@ -113,7 +117,6 @@ main {
 
 #current-weather-container .info .name {
     flex: 1;
-    text-align: center;
 }
 
 #current-weather-container .info .conditions {
@@ -121,15 +124,7 @@ main {
     margin-left: auto;
 }
 
-#current-weather-container .flex {
-    display: flex;
-}
-
 #current-weather-container img {
     height: 100px;
     width:  100px;
-}
-
-#current-weather-container .description {
-    text-align: center;
 }

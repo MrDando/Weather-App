@@ -9,7 +9,7 @@
       <div class='upper'>
         <h1>Weather Forecast App</h1>
       </div>
-      <div class='lower'>
+      <div class='lower flex'>
         <div id='search-container'>
           <form onsubmit="return false">
             <input id='search-input' type="text" placeholder="Enter a city">
@@ -26,7 +26,7 @@
     </header>
     <main>
       <div id='current-weather-container' class='weather current'>
-        <div class='info'>
+        <div class='info flex'>
           <div class='name'>
             <h2 id='location-name'></h2>
           </div>
@@ -34,7 +34,7 @@
             <p>Current conditions</p>
           </div>
         </div>
-        <div class='weather current flex'>
+        <div class='weather current flex row'>
           <div claas=''>
             <div class='icon current'>
 
@@ -44,10 +44,15 @@
             </div>
           </div>
           <div class='temperature current'>
-            <div class = 'temperature current exact'>
+            <div>
+
             </div>
-            <div class = 'temperature current feels-like'>
-              <h3>RealFeel</h3>
+            <div class='flex column'>
+              <div class = 'temperature current exact'>
+              </div>
+              <div class = 'temperature current feels-like'>
+                <h3>RealFeel</h3>
+              </div>
             </div>
           </div>
           <div class='precipitation current'>

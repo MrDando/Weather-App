@@ -31,6 +31,7 @@ const displayController = (function displayController() {
       const topDivElement = document.createElement('div');
       const bottomDivElement = document.createElement('div');
       topDivElement.classList.add('top');
+      topDivElement.classList.add('flex');
       bottomDivElement.classList.add('bottom');
       const nameElement = document.createElement('h3');
       const typeElement = document.createElement('p');
