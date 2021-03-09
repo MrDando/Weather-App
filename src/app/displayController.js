@@ -98,8 +98,7 @@ const displayController = (function displayController() {
         imageDivElement.innerText = '';
 
         const imageElement = document.createElement('img');
-        const descriptionDivElement = container.querySelector('.description');
-        const descriptionElement = document.createElement('p');
+        const descriptionElement = container.querySelector('.description span');
 
         const currentWeatherIcon = `${currentWeather.weather[0].icon}.svg`;
         const images = importAll(require.context('./assets/svg/weather', false, /\.(png|jpe?g|svg)$/));
@@ -109,7 +108,6 @@ const displayController = (function displayController() {
         descriptionElement.innerText = currentWeather.weather[0].description;
 
         imageDivElement.appendChild(imageElement);
-        descriptionDivElement.appendChild(descriptionElement);
       }
 
       function renderTemperature() {
