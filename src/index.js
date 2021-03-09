@@ -8,6 +8,7 @@ function init() {
   console.log('initialized');
   const button = document.getElementById('search-btn');
   button.addEventListener('click', formHandler.searchForm);
+  formHandler.searchForm('', 'Zagreb'); // Remove after testing
 }
 
 init();
