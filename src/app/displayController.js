@@ -128,7 +128,19 @@ const displayController = (function displayController() {
       }
 
       function renderPrecipitation() {
+        const precipitationElement = container.querySelector('.precipitation .value');
+        precipitationElement.innerText = '';
 
+        const { rain } = weatherData.current;
+        const { snow } = weatherData.current;
+
+        if (rain) {
+          precipitationElement.innerText = `${rain['1h']} mm`;
+        } else if (snow) {
+          precipitationElement.innerText = `${snow['1h']} mm`;
+        } else {
+          precipitationElement.innerText = '0 mm';
+        }
       }
 
       function renderWind() {
