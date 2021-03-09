@@ -73,7 +73,7 @@ const displayController = (function displayController() {
     results.forEach((item) => formatResult(item));
   }
 
-  function renderWeather(title, data) {
+  function renderConditions(title, data) {
     const location = data[0];
     const weatherData = data[1];
     const units = data[2];
@@ -84,7 +84,7 @@ const displayController = (function displayController() {
       return images;
     }
 
-    function renderCurrentWeather() {
+    function renderCurrentConditions() {
       const container = document.getElementById('current-weather-container');
       const currentWeather = weatherData.current;
 
@@ -158,11 +158,11 @@ const displayController = (function displayController() {
 
       return (formattedTime);
     } */
-    renderCurrentWeather();
+    renderCurrentConditions();
     // renderDailyWeather();
   }
   PubSub.subscribe('RENDER SEARCH RESULTS', renderSearch);
-  PubSub.subscribe('RENDER WEATHER DATA', renderWeather);
+  PubSub.subscribe('RENDER WEATHER DATA', renderConditions);
 }());
 
 export { displayController as default };
