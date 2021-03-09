@@ -9,14 +9,15 @@
     --mint-cream: #F0F7F4;
 }
 
-html {
-    height: 100%;
-    width: 100%;
-}
+html,body { height:100%; }
 
 body {
-    height: inherit;
-    width: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }
 
 .flex {
@@ -94,9 +95,6 @@ header .lower {
 }
 
 main {
-    position: relative;
-    margin-top: 0;
-    height: 80%;
     background-color: var(--mint-cream);
 }
 
@@ -138,4 +136,11 @@ img.small-img {
     font-size: 40px;
     padding: 0;
     margin: 0;
+}
+
+footer {
+    height: 20px;
+    background-color: aquamarine;
+    margin-top: auto;
+    margin-bottom: 0;
 }
