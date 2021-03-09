@@ -30,7 +30,7 @@ const formHandler = (function formHandler() {
     const { lng } = location.geometry;
     const apiKey = '7e82125835d749e0e51d3420e0cdf1ed';
     const weatherData = await getWeather(apiKey, lat, lng, 'metric');
-    PubSub.publish('RENDER WEATHER DATA', [location, weatherData]);
+    PubSub.publish('RENDER WEATHER DATA', [location, weatherData, 'metric']);
   }
   PubSub.subscribe('LOCATION SELECTED', requestWeather);
   return { searchForm };

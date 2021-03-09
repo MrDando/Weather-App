@@ -76,11 +76,17 @@ const displayController = (function displayController() {
   function renderWeather(title, data) {
     const location = data[0];
     const weatherData = data[1];
+    const units = data[2];
+
+    function importAll(r) {
+      const images = {};
+      r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+      return images;
+    }
 
     function renderCurrentWeather() {
       const container = document.getElementById('current-weather-container');
       const currentWeather = weatherData.current;
-      console.log(currentWeather);
 
       function renderLocationName() {
         const nameElement = document.getElementById('location-name');
@@ -88,12 +94,6 @@ const displayController = (function displayController() {
       }
 
       function renderWeather() {
-        function importAll(r) {
-          const images = {};
-          r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-          return images;
-        }
-
         const imageDivElement = container.querySelector('.icon');
         imageDivElement.innerText = '';
 
@@ -113,20 +113,20 @@ const displayController = (function displayController() {
       }
 
       function renderTemperature() {
-        const exactTemperatureDiv = container.querySelector('.exact');
-        exactTemperatureDiv.innerText = '';
-        const feelslikeTemperatureDiv = container.querySelector('.feels-like');
-        feelslikeTemperatureDiv.innerText = '';
-        const exactTemperatureElement = document.createElement('p');
-        const feelslikeTemperatureElement = document.createElement('p');
+        const exactTemperatureElement = container.querySelector('.exact .value');
+        const exactTemperature = Math.round(currentWeather.temp);
+        exactTemperatureElement.innerText = exactTemperature;
 
-        const temperature = Math.round(currentWeather.temp);
-        const feelsLike = Math.round(currentWeather.feels_like);
-        exactTemperatureElement.innerText = temperature;
-        feelslikeTemperatureElement.innerText = feelsLike;
+        const exactTemperatureUnits = container.querySelector('.exact .units');
+        if (units === 'metric') {
+          exactTemperatureUnits.innerHTML = '°C';
+        } else {
+          exactTemperatureUnits.innerHTML = '°F';
+        }
 
-        exactTemperatureDiv.appendChild(exactTemperatureElement);
-        feelslikeTemperatureDiv.appendChild(feelslikeTemperatureElement);
+        const feelslikeTemperatureElement = container.querySelector('.feels-like span');
+        const feelsLikeTemperature = Math.round(currentWeather.feels_like);
+        feelslikeTemperatureElement.innerText = `Feels like ${feelsLikeTemperature}`;
       }
 
       function renderPrecipitation() {
@@ -143,7 +143,7 @@ const displayController = (function displayController() {
       renderPrecipitation();
       renderWind();
     }
-
+    /*
     function renderDailyWeather() {
       const dailyWeather = weatherData.daily;
       console.log(dailyWeather); // testing
@@ -157,7 +157,7 @@ const displayController = (function displayController() {
       const formattedTime = `${hours}:${minutes.substr(-2)}:${seconds.substr(-2)}`;
 
       return (formattedTime);
-    }
+    } */
     renderCurrentWeather();
     // renderDailyWeather();
   }
