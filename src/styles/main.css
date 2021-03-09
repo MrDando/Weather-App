@@ -18,6 +18,9 @@ body {
 
 main {
     flex: 1;
+    background-image: url('../app/assets/jpg/1041.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .flex {
