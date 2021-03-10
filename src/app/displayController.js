@@ -212,16 +212,45 @@ const displayController = (function displayController() {
         wrapperDiv.appendChild(temperatureTd);
       }
 
+      function renderPrecipitation(dailyData, wrapperDiv) {
+        const precipitationTd = document.createElement('td');
+        const precipitationSpan = document.createElement('span');
+        const { rain } = dailyData;
+        const { snow } = dailyData;
+        let precipitation;
+
+        if (rain && snow) {
+          precipitation = rain + snow;
+        } else if (rain) {
+          precipitation = rain;
+        } else if (snow) {
+          precipitation = snow;
+        } else {
+          precipitation = 0;
+        }
+
+        if (precipitation > 10) {
+          precipitation = Math.round(precipitation);
+        } else {
+          precipitation = Math.round(precipitation * 10) / 10;
+        }
+        precipitationSpan.innerText = `${precipitation} mm`;
+
+        precipitationTd.appendChild(precipitationSpan);
+        wrapperDiv.appendChild(precipitationTd);
+      }
+
       for (let i = 0; i < dailyWeather.length; i += 1) {
         const wrapperDiv = document.createElement('tr');
         const dailyData = dailyWeather[i];
-        // console.log(dailyData);
+        console.log(dailyData);
         wrapperDiv.classList.add('day');
         const dateTime = convertUnixTime(dailyData.dt);
 
         renderDate(i, dateTime, wrapperDiv);
         renderWeatherImage(dailyData.weather[0].icon, wrapperDiv);
         renderMaxMinTemperature(dailyData.temp, wrapperDiv);
+        renderPrecipitation(dailyData, wrapperDiv);
 
         container.appendChild(wrapperDiv);
       }
