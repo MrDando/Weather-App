@@ -16,6 +16,20 @@ html,body { height:100%; }
 body {
     display: flex;
     flex-direction: column;
+    text-align: center;
+}
+
+h1 {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
 }
 
 main {
@@ -36,10 +50,7 @@ main {
 
 header .upper {
     background-color: var(--queen-blue);
-    text-align: center;
     padding: 0.3em;
-    font-size: 26px;
-    font-weight: bold;
 }
 
 header .lower {
@@ -86,10 +97,6 @@ header .lower {
     justify-content: space-between;
 }
 
-.result h3 {
-    font-size: 20px;
-}
-
 .result p {
     font-size: 12px;
     overflow: none;
@@ -103,9 +110,9 @@ main {
     background-color: var(--mint-cream);
 }
 
-.weather img {
-    height: 100px;
-    width: 100px;
+.conditions img {
+    height: 80px;
+    width: 80px;
 }
 
 img.small-img {
@@ -113,37 +120,46 @@ img.small-img {
     width: auto;
 }
 
-#current-weather-container {
+#current-conditions-container {
+    padding: 0.5em 1.5em;
     margin: 40px 0 0 40px;
     background-color: var(--platinum);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     opacity: 0.8;
-    width: 50vw;
-    text-align: center;
+    width: fit-content;
 }
 
-#current-weather-container .info {
-    padding: 0.5em 1em;
+#current-conditions-container .info {
+    padding: 0 1em;
     justify-content: space-evenly;
 }
 
-#current-weather-container .info h2 {
-    font-size: 24px;
-}
-
-#current-weather-container .info .name {
+#current-conditions-container .info .name {
     flex: 1;
 }
 
-#current-weather-container .info .conditions {
-    margin-right: 0;
-    margin-left: auto;
+#current-conditions-container .weather {
+    padding: 10px 30px 10px 5px;
 }
 
-#current-weather-container .exact{
+#current-conditions-container .weather img {
+    height: 140px;
+    width: auto;
+}
+
+
+
+#current-conditions-container .temperature img{
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+#current-conditions-container .exact{
     font-size: 40px;
-    padding: 0;
-    margin: 0;
+}
+
+#current-conditions-container .wind img{
+    margin-left: 15px;
 }
 
 footer {

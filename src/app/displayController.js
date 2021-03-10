@@ -85,7 +85,7 @@ const displayController = (function displayController() {
     }
 
     function renderCurrentConditions() {
-      const container = document.getElementById('current-weather-container');
+      const container = document.getElementById('current-conditions-container');
       const currentWeather = weatherData.current;
 
       function renderLocationName() {
@@ -124,7 +124,7 @@ const displayController = (function displayController() {
 
         const feelslikeTemperatureElement = container.querySelector('.feels-like span');
         const feelsLikeTemperature = Math.round(currentWeather.feels_like);
-        feelslikeTemperatureElement.innerText = `Feels like ${feelsLikeTemperature}`;
+        feelslikeTemperatureElement.innerText = `Feels like: ${feelsLikeTemperature}°`;
       }
 
       function renderPrecipitation() {
