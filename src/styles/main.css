@@ -48,6 +48,14 @@ main {
     flex-direction: column;
 }
 
+.card {
+    background-color: var(--platinum);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    opacity: 0.8;
+    padding: 0.5em 1.5em;
+    margin: 40px 0 0 40px;
+}
+
 header .upper {
     background-color: var(--queen-blue);
     padding: 0.3em;
@@ -121,11 +129,6 @@ img.small-img {
 }
 
 #current-conditions-container {
-    padding: 0.5em 1.5em;
-    margin: 40px 0 0 40px;
-    background-color: var(--platinum);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    opacity: 0.8;
     width: fit-content;
 }
 
@@ -160,6 +163,20 @@ img.small-img {
 
 #current-conditions-container .wind img{
     margin-left: 15px;
+}
+
+#forecast-table {
+    border-collapse: collapse;
+}
+
+#forecast-table thead th{
+    padding: 10px;
+    border-bottom: 2px solid var(--spanish-gray);  
+}
+
+#forecast-table tbody td{
+    padding: 10px;
+    border-bottom: 1px solid var(--spanish-gray);  
 }
 
 footer {

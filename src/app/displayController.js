@@ -84,6 +84,12 @@ const displayController = (function displayController() {
       return images;
     }
 
+    function convertUnixTime(unixTimestamp) {
+      const date = new Date(unixTimestamp * 1000);
+
+      return date;
+    }
+
     function renderCurrentConditions() {
       const container = document.getElementById('current-conditions-container');
       const currentWeather = weatherData.current;
@@ -159,23 +165,43 @@ const displayController = (function displayController() {
       renderPrecipitation();
       renderWind();
     }
-    /*
-    function renderDailyWeather() {
+
+    function renderDailyForecast() {
       const dailyWeather = weatherData.daily;
-      console.log(dailyWeather); // testing
+      const container = document.querySelector('#forecast-container');
+
+      function getDayName(date) {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        return days[date.getDay()];
+      }
+
+      function getMonthName(date) {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return months[date.getMonth()];
+      }
+
+      for (let i = 0; i < dailyWeather.length; i += 1) {
+        const wrapperDiv = document.createElement('tr');
+        wrapperDiv.classList.add('day');
+        const dateTime = convertUnixTime(dailyWeather[i].dt);
+
+        // console.log(conditions);
+
+        const dateDiv = document.createElement('td');
+        const day = (i === 0) ? 'Today' : getDayName(dateTime);
+        const month = getMonthName(dateTime);
+        const date = dateTime.getDate();
+
+        dateDiv.innerText = `${day}, ${month}. ${date}`;
+
+        // last lines
+        wrapperDiv.appendChild(dateDiv);
+        container.appendChild(wrapperDiv);
+      }
     }
 
-    function convertUnixTime(unixTimestamp) {
-      const date = new Date(unixTimestamp * 1000);
-      const hours = date.getHours();
-      const minutes = `0${date.getMinutes()}`;
-      const seconds = `0${date.getSeconds()}`;
-      const formattedTime = `${hours}:${minutes.substr(-2)}:${seconds.substr(-2)}`;
-
-      return (formattedTime);
-    } */
     renderCurrentConditions();
-    // renderDailyWeather();
+    renderDailyForecast();
   }
   PubSub.subscribe('RENDER SEARCH RESULTS', renderSearch);
   PubSub.subscribe('RENDER WEATHER DATA', renderConditions);
