@@ -84,6 +84,8 @@ const displayController = (function displayController() {
       return images;
     }
 
+    const images = importAll(require.context('./assets/svg/weather', false, /\.(png|jpe?g|svg)$/));
+
     function convertUnixTime(unixTimestamp) {
       const date = new Date(unixTimestamp * 1000);
 
@@ -107,7 +109,6 @@ const displayController = (function displayController() {
         const descriptionElement = container.querySelector('.description span');
 
         const currentWeatherIcon = `${currentWeather.weather[0].icon}.svg`;
-        const images = importAll(require.context('./assets/svg/weather', false, /\.(png|jpe?g|svg)$/));
         const image = images[currentWeatherIcon];
         imageElement.src = image.default;
 
@@ -190,12 +191,24 @@ const displayController = (function displayController() {
         wrapperDiv.appendChild(dateDiv);
       }
 
+      function renderWeatherImage(icon, wrapperDiv) {
+        const imageTd = document.createElement('td');
+        const imageElement = document.createElement('img');
+        const image = images[`${icon}.svg`].default;
+        imageElement.src = image;
+
+        imageTd.appendChild(imageElement);
+        wrapperDiv.appendChild(imageTd);
+      }
+
       for (let i = 0; i < dailyWeather.length; i += 1) {
         const wrapperDiv = document.createElement('tr');
+        const dailyData = dailyWeather[i];
         wrapperDiv.classList.add('day');
-        const dateTime = convertUnixTime(dailyWeather[i].dt);
+        const dateTime = convertUnixTime(dailyData.dt);
 
         renderDate(i, dateTime, wrapperDiv);
+        renderWeatherImage(dailyData.weather[0].icon, wrapperDiv);
 
         // last lines
         container.appendChild(wrapperDiv);

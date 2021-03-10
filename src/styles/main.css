@@ -175,8 +175,14 @@ img.small-img {
 }
 
 #forecast-table tbody td{
-    padding: 10px;
-    border-bottom: 1px solid var(--spanish-gray);  
+    padding: 5px;
+    border-bottom: 1px solid var(--spanish-gray);
+    vertical-align: middle;
+}
+
+#forecast-table img {
+    height: 40px;
+    width: auto;
 }
 
 footer {
