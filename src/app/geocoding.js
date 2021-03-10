@@ -21,7 +21,7 @@ async function getLocations(apiKey, query, filters = null) {
 
   const locations = await fetchData();
   if (filters) {
-    const filteredLocations = filterResults(locations, ['city', 'village']);
+    const filteredLocations = filterResults(locations, ['city', 'village', 'neighbourhood']);
     return filteredLocations;
   }
   return locations;

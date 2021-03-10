@@ -2,7 +2,8 @@ import PubSub from 'pubsub-js';
 
 const displayController = (function displayController() {
   function getName(location) {
-    const types = ['city', 'town', 'village', 'hamlet'];
+    console.log(location);
+    const types = ['city', 'town', 'village', 'hamlet', 'city_district'];
     let locationName;
     types.forEach((type) => {
       if (location.components.hasOwnProperty(type)) {
