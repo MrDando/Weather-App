@@ -169,6 +169,7 @@ const displayController = (function displayController() {
     function renderDailyForecast() {
       const dailyWeather = weatherData.daily;
       const container = document.querySelector('#forecast-container');
+      container.innerText = '';
 
       function getDayName(date) {
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -180,22 +181,23 @@ const displayController = (function displayController() {
         return months[date.getMonth()];
       }
 
+      function renderDate(i, dateTime, wrapperDiv) {
+        const dateDiv = document.createElement('td');
+        const day = (i === 0) ? 'Today' : getDayName(dateTime);
+        const month = getMonthName(dateTime);
+        const date = dateTime.getDate();
+        dateDiv.innerText = `${day}, ${month}. ${date}`;
+        wrapperDiv.appendChild(dateDiv);
+      }
+
       for (let i = 0; i < dailyWeather.length; i += 1) {
         const wrapperDiv = document.createElement('tr');
         wrapperDiv.classList.add('day');
         const dateTime = convertUnixTime(dailyWeather[i].dt);
 
-        // console.log(conditions);
-
-        const dateDiv = document.createElement('td');
-        const day = (i === 0) ? 'Today' : getDayName(dateTime);
-        const month = getMonthName(dateTime);
-        const date = dateTime.getDate();
-
-        dateDiv.innerText = `${day}, ${month}. ${date}`;
+        renderDate(i, dateTime, wrapperDiv);
 
         // last lines
-        wrapperDiv.appendChild(dateDiv);
         container.appendChild(wrapperDiv);
       }
     }
