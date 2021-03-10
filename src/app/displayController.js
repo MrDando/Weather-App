@@ -240,10 +240,19 @@ const displayController = (function displayController() {
         wrapperDiv.appendChild(precipitationTd);
       }
 
+      function renderWind(wind, wrapperDiv) {
+        const windTd = document.createElement('td');
+        const windSpan = document.createElement('span');
+
+        windSpan.innerText = `${Math.round(wind)} m/s`;
+
+        windTd.appendChild(windSpan);
+        wrapperDiv.appendChild(windTd);
+      }
+
       for (let i = 0; i < dailyWeather.length; i += 1) {
         const wrapperDiv = document.createElement('tr');
         const dailyData = dailyWeather[i];
-        console.log(dailyData);
         wrapperDiv.classList.add('day');
         const dateTime = convertUnixTime(dailyData.dt);
 
@@ -251,6 +260,7 @@ const displayController = (function displayController() {
         renderWeatherImage(dailyData.weather[0].icon, wrapperDiv);
         renderMaxMinTemperature(dailyData.temp, wrapperDiv);
         renderPrecipitation(dailyData, wrapperDiv);
+        renderWind(dailyData.wind_speed, wrapperDiv);
 
         container.appendChild(wrapperDiv);
       }
