@@ -3,10 +3,12 @@
 }
 
 :root {
-    --kombu-green: #3C493F;
-    --xanadu: #7E8D85;
-    --ash-grey: #B3BFB8;
-    --mint-cream: #F0F7F4;
+    --queen-blue: #4B6695;
+    --shadow-blue: #7C95BE;
+    --jet: #343434;
+    --spanish-gray: #909090;
+    --platinum: #EBEBEB;
+
 }
 
 html,body { height:100%; }
@@ -33,16 +35,16 @@ main {
 }
 
 header .upper {
-    background-color: var(--kombu-green);
+    background-color: var(--queen-blue);
     text-align: center;
-    padding: 0.5em;
+    padding: 0.3em;
     font-size: 26px;
     font-weight: bold;
 }
 
 header .lower {
-    padding: 1em;
-    background-color: var(--xanadu);
+    padding: 0.7em;
+    background-color: var(--shadow-blue);
 }
 
 #search-container {
@@ -68,7 +70,7 @@ header .lower {
 
 .result {
     padding: 0.5em 1em;
-    border-bottom: 1px solid var(--kombu-green);
+    border-bottom: 1px solid var(--spanish-gray);
     background-color:#EAE9EC;
 }
 
@@ -112,8 +114,11 @@ img.small-img {
 }
 
 #current-weather-container {
-    background-color:#B3BFB8;
-    width: 60vw;
+    margin: 40px 0 0 40px;
+    background-color: var(--platinum);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    opacity: 0.8;
+    width: 50vw;
     text-align: center;
 }
 
@@ -142,8 +147,8 @@ img.small-img {
 }
 
 footer {
-    height: 20px;
-    background-color: aquamarine;
+    height: 50px;
+    background-color: var(--shadow-blue);
     margin-top: auto;
     margin-bottom: 0;
 }
