@@ -201,16 +201,28 @@ const displayController = (function displayController() {
         wrapperDiv.appendChild(imageTd);
       }
 
+      function renderMaxMinTemperature(temp, wrapperDiv) {
+        const temperatureTd = document.createElement('td');
+        const temeratureSpan = document.createElement('span');
+        const maxTemp = Math.round(temp.max);
+        const minTemp = Math.round(temp.min);
+
+        temeratureSpan.innerText = `${maxTemp}° / ${minTemp}°`;
+        temperatureTd.appendChild(temeratureSpan);
+        wrapperDiv.appendChild(temperatureTd);
+      }
+
       for (let i = 0; i < dailyWeather.length; i += 1) {
         const wrapperDiv = document.createElement('tr');
         const dailyData = dailyWeather[i];
+        // console.log(dailyData);
         wrapperDiv.classList.add('day');
         const dateTime = convertUnixTime(dailyData.dt);
 
         renderDate(i, dateTime, wrapperDiv);
         renderWeatherImage(dailyData.weather[0].icon, wrapperDiv);
+        renderMaxMinTemperature(dailyData.temp, wrapperDiv);
 
-        // last lines
         container.appendChild(wrapperDiv);
       }
     }
