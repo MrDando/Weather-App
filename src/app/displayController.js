@@ -142,9 +142,9 @@ const displayController = (function displayController() {
         const { snow } = weatherData.current;
 
         if (rain) {
-          precipitationElement.innerText = `${rain['1h']} mm`;
+          precipitationElement.innerText = `${Math.round(rain['1h'] * 10) / 10} mm`;
         } else if (snow) {
-          precipitationElement.innerText = `${snow['1h']} mm`;
+          precipitationElement.innerText = `${Math.round(snow['1h'] * 10) / 10} mm`;
         } else {
           precipitationElement.innerText = '0 mm';
         }
