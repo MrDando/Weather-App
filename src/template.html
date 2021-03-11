@@ -41,34 +41,30 @@
               <span></span>
             </div>
           </div>
-          <div class='temperature current flex'>
-            <div class='icon'>
-              <img src='./app/assets/svg/thermometer.svg' alt='thermometer'>
+          <div class='temperature container flex column'>
+            <div class = 'temperature current exact'>
+              <span class='value'></span>
+              <span class='units'></span>
             </div>
-            <div class='container flex column'>
-              <div class = 'temperature current exact'>
-                <span class='value'></span>
-                <span class='units'></span>
-              </div>
-              <div class = 'temperature current feels-like'>
-                <span></span>
-              </div>
+            <div class = 'temperature current feels-like'>
+              <span></span>
             </div>
           </div>
-          <div class='precipitation current flex'>
-            <img src='./app/assets/svg/umbrella.svg' alt='precipitation'>
-            <div class='flex column'>
-              <span>Next Hour:</span>
+          <div class='info current flex column'>
+            <div class='alerts'>
+              <span class='value'>ALERT</span>
+            </div>
+            <div class='precipitation'>
+              <span>Precipitation next hour:</span>
               <span class='value'></span>
             </div>
-          </div>
-          <div class='wind current flex'>
-            <div class='icon'>
-              <img src='./app/assets/svg/wind.svg' alt='wind-icon'>
+            <div class='wind'>
+              <span>Wind</span>
+              <span class='value'></span>
             </div>
-            <div class='value flex column'>
-              <span></span>
-              <img src='./app/assets/svg/wind-deg.svg' class='small-img'>
+            <div class='humidity'>
+              <span>Humidity</span>
+              <span class='value'></span>
             </div>
           </div>
         </div>

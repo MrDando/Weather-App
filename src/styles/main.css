@@ -150,19 +150,8 @@ img.small-img {
     width: auto;
 }
 
-
-
-#current-conditions-container .temperature img{
-    margin-left: -10px;
-    margin-right: -10px;
-}
-
 #current-conditions-container .exact{
     font-size: 40px;
-}
-
-#current-conditions-container .wind img{
-    margin-left: 15px;
 }
 
 #forecast-table {

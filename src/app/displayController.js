@@ -2,7 +2,6 @@ import PubSub from 'pubsub-js';
 
 const displayController = (function displayController() {
   function getName(location) {
-    console.log(location);
     const types = ['city', 'town', 'village', 'hamlet', 'city_district'];
     let locationName;
     types.forEach((type) => {
@@ -142,7 +141,9 @@ const displayController = (function displayController() {
         const { rain } = weatherData.current;
         const { snow } = weatherData.current;
 
-        if (rain) {
+        if (rain && snow) {
+          precipitationElement.innerText = `${Math.round((rain['1h'] + snow['1h']) * 10) / 10} mm`;
+        } else if (rain) {
           precipitationElement.innerText = `${Math.round(rain['1h'] * 10) / 10} mm`;
         } else if (snow) {
           precipitationElement.innerText = `${Math.round(snow['1h'] * 10) / 10} mm`;
@@ -152,13 +153,29 @@ const displayController = (function displayController() {
       }
 
       function renderWind() {
-        const windElement = container.querySelector('.wind .value span');
-        const windSpeed = `${Math.round(currentWeather.wind_speed)} m/s`;
-        windElement.innerText = windSpeed;
+        function degToCard(value) {
+          value = parseFloat(value);
+          if (value <= 11.25) return 'N';
+          value -= 11.25;
+          const allDirections = ['NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N'];
+          const dIndex = parseInt(value / 22.5);
+          return allDirections[dIndex] ? allDirections[dIndex] : 'N';
+        }
 
-        const windDirectionImage = container.querySelector('.wind .value img');
-        const windDirection = currentWeather.wind_deg;
-        windDirectionImage.setAttribute('style', `transform: rotate(${windDirection}deg)`);
+        const windElement = container.querySelector('.wind .value');
+        const windSpeed = `${Math.round(currentWeather.wind_speed)} m/s`;
+
+        const windDeg = currentWeather.wind_deg;
+        const windDirection = degToCard(windDeg);
+
+        windElement.innerText = `${windDirection} ${windSpeed} `;
+      }
+
+      function renderHumidity() {
+        const humidityElement = container.querySelector('.humidity .value');
+        const { humidity } = currentWeather;
+
+        humidityElement.innerText = `${humidity} %`;
       }
 
       renderLocationName();
@@ -166,6 +183,7 @@ const displayController = (function displayController() {
       renderTemperature();
       renderPrecipitation();
       renderWind();
+      renderHumidity();
     }
 
     function renderDailyForecast() {
