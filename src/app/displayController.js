@@ -185,6 +185,7 @@ const displayController = (function displayController() {
 
       function renderDate(i, dateTime, wrapperDiv) {
         const dateDiv = document.createElement('td');
+        dateDiv.classList.add('first-row');
         const day = (i === 0) ? 'Today' : getDayName(dateTime);
         const month = getMonthName(dateTime);
         const date = dateTime.getDate();
