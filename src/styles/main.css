@@ -155,7 +155,7 @@ img.small-img {
 }
 
 #current-conditions-container .info {
-    width: 200px;
+    width: 220px;
     margin-left: 2em;
 }
 
@@ -168,6 +168,17 @@ img.small-img {
 
 #current-conditions-container .info div:last-child {
     border: none;
+}
+
+#current-conditions-container .alerts{
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    padding: 0.7em !important;
+}
+
+.danger {
+    background-color:#cf0a0a !important;
 }
 
 #forecast-table {

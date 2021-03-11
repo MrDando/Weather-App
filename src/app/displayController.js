@@ -135,14 +135,17 @@ const displayController = (function displayController() {
       }
 
       function renderAlerts() {
+        const alertDiv = container.querySelector('.alerts');
         const alertElement = container.querySelector('.alerts .value');
 
         const { alerts } = weatherData;
 
         if (alerts) {
           alertElement.innerText = alerts[0].event;
+          alertDiv.classList.add('danger');
         } else {
           alertElement.innerText = 'No Alerts';
+          alertDiv.classList.remove('danger');
         }
       }
 
