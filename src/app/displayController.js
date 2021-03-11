@@ -112,7 +112,8 @@ const displayController = (function displayController() {
         const image = images[currentWeatherIcon];
         imageElement.src = image.default;
 
-        descriptionElement.innerText = currentWeather.weather[0].description;
+        const { description } = currentWeather.weather[0];
+        descriptionElement.innerText = description.charAt(0).toUpperCase() + description.slice(1);
 
         imageDivElement.appendChild(imageElement);
       }

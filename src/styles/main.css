@@ -133,8 +133,8 @@ img.small-img {
 }
 
 #current-conditions-container .intro {
-    padding: 0 1em;
-    justify-content: space-evenly;
+    padding: 0.5em 1em;
+    justify-content: center;
 }
 
 #current-conditions-container .intro .name {
@@ -146,12 +146,13 @@ img.small-img {
 }
 
 #current-conditions-container .weather img {
-    height: 140px;
+    height: 70px;
     width: auto;
+    padding-bottom: 10px;
 }
 
 #current-conditions-container .exact{
-    font-size: 40px;
+    font-size: 60px;
 }
 
 #current-conditions-container .info {
