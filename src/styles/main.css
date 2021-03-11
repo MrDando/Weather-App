@@ -154,6 +154,22 @@ img.small-img {
     font-size: 40px;
 }
 
+#current-conditions-container .info {
+    width: 200px;
+    margin-left: 2em;
+}
+
+#current-conditions-container .info div {
+    width: 100%;
+    border-bottom: 1px solid black;
+    justify-content: space-between;
+    padding: 0.3em; 
+}
+
+#current-conditions-container .info div:last-child {
+    border: none;
+}
+
 #forecast-table {
     border-collapse: collapse;
 }
