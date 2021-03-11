@@ -134,6 +134,18 @@ const displayController = (function displayController() {
         feelslikeTemperatureElement.innerText = `Feels like: ${feelsLikeTemperature}°`;
       }
 
+      function renderAlerts() {
+        const alertElement = container.querySelector('.alerts .value');
+
+        const { alerts } = weatherData;
+
+        if (alerts) {
+          alertElement.innerText = alerts[0].event;
+        } else {
+          alertElement.innerText = 'No Alerts';
+        }
+      }
+
       function renderPrecipitation() {
         const precipitationElement = container.querySelector('.precipitation .value');
         precipitationElement.innerText = '';
@@ -181,6 +193,7 @@ const displayController = (function displayController() {
       renderLocationName();
       renderWeather();
       renderTemperature();
+      renderAlerts();
       renderPrecipitation();
       renderWind();
       renderHumidity();
