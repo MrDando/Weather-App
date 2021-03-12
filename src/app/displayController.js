@@ -84,6 +84,11 @@ const displayController = (function displayController() {
       return images;
     }
 
+    function convertToFahrenheit(celsius) {
+      const fahrenheit = (celsius * 1.8) + 32;
+      return fahrenheit;
+    }
+
     const images = importAll(require.context('./assets/svg/weather', false, /\.(png|jpe?g|svg)$/));
 
     function convertUnixTime(unixTimestamp) {
@@ -120,7 +125,13 @@ const displayController = (function displayController() {
 
       function renderTemperature() {
         const exactTemperatureElement = container.querySelector('.exact .value');
-        const exactTemperature = Math.round(currentWeather.temp);
+        let exactTemperature = currentWeather.temp;
+
+        if (units === 'metric') {
+          exactTemperature = Math.round(exactTemperature);
+        } else {
+          exactTemperature = Math.round(convertToFahrenheit(exactTemperature));
+        }
         exactTemperatureElement.innerText = exactTemperature;
 
         const exactTemperatureUnits = container.querySelector('.exact .units');
@@ -131,7 +142,13 @@ const displayController = (function displayController() {
         }
 
         const feelslikeTemperatureElement = container.querySelector('.feels-like span');
-        const feelsLikeTemperature = Math.round(currentWeather.feels_like);
+        let feelsLikeTemperature = currentWeather.feels_like;
+
+        if (units === 'metric') {
+          feelsLikeTemperature = Math.round(feelsLikeTemperature);
+        } else {
+          feelsLikeTemperature = Math.round(convertToFahrenheit(feelsLikeTemperature));
+        }
         feelslikeTemperatureElement.innerText = `Feels like: ${feelsLikeTemperature}°`;
       }
 
@@ -241,8 +258,16 @@ const displayController = (function displayController() {
       function renderMaxMinTemperature(temp, wrapperDiv) {
         const temperatureTd = document.createElement('td');
         const temeratureSpan = document.createElement('span');
-        const maxTemp = Math.round(temp.max);
-        const minTemp = Math.round(temp.min);
+        let maxTemp = temp.max;
+        let minTemp = temp.min;
+
+        if (units === 'metric') {
+          maxTemp = Math.round(maxTemp);
+          minTemp = Math.round(minTemp);
+        } else {
+          maxTemp = Math.round(convertToFahrenheit(maxTemp));
+          minTemp = Math.round(convertToFahrenheit(minTemp));
+        }
 
         temeratureSpan.innerText = `${maxTemp}° / ${minTemp}°`;
         temperatureTd.appendChild(temeratureSpan);
