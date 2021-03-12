@@ -1,17 +1,7 @@
 import PubSub from 'pubsub-js';
+import getName from './helpers/getName';
 
 const displayController = (function displayController() {
-  function getName(location) {
-    const types = ['city', 'town', 'village', 'hamlet', 'city_district'];
-    let locationName;
-    types.forEach((type) => {
-      if (location.components.hasOwnProperty(type)) {
-        locationName = location.components[type];
-      }
-    });
-    return locationName;
-  }
-
   function renderSearch(title, results) {
     const container = document.getElementById('search-results');
 
@@ -74,7 +64,7 @@ const displayController = (function displayController() {
   }
 
   function renderConditions(title, data) {
-    const location = data[0];
+    const locationName = data[0];
     const weatherData = data[1];
     const units = data[2];
 
@@ -103,12 +93,7 @@ const displayController = (function displayController() {
 
       function renderLocationName() {
         const nameElement = document.getElementById('location-name');
-        console.log(typeof (location));
-        if (typeof (location) === 'string') {
-          nameElement.innerText = location;
-        } else {
-          nameElement.innerText = getName(location);
-        }
+        nameElement.innerText = locationName;
       }
 
       function renderWeather() {

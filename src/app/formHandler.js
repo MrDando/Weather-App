@@ -1,6 +1,7 @@
 import PubSub from 'pubsub-js';
 import getLocations from './geocoding';
 import getWeather from './weather';
+import getName from './helpers/getName';
 
 const formHandler = (function formHandler() {
   let results = [];
@@ -21,17 +22,17 @@ const formHandler = (function formHandler() {
     } else {
       units = 'metric';
     }
-    PubSub.publish('RENDER WEATHER DATA', [location, weatherData, units]);
+    const name = getName(location);
+    PubSub.publish('RENDER WEATHER DATA', [name, weatherData, units]);
   }
 
   async function requestWeather(lat, lng, name = null) {
     const apiKey = '7e82125835d749e0e51d3420e0cdf1ed';
     weatherData = await getWeather(apiKey, lat, lng, 'metric');
-    if (name) {
-      PubSub.publish('RENDER WEATHER DATA', [name, weatherData, units]);
-    } else {
-      PubSub.publish('RENDER WEATHER DATA', [location, weatherData, units]);
+    if (name === null) {
+      name = getName(location);
     }
+    PubSub.publish('RENDER WEATHER DATA', [name, weatherData, units]);
   }
 
   async function searchForm() {
