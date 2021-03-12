@@ -6,8 +6,11 @@ import displayController from './app/displayController';
 
 function init() {
   console.log('initialized');
-  const button = document.getElementById('search-btn');
-  button.addEventListener('click', formHandler.searchForm);
+  const searchButton = document.getElementById('search-btn');
+  searchButton.addEventListener('click', formHandler.searchForm);
+
+  const switchButton = document.querySelector('#unit-selector .switch');
+  // switchButton.addEventListener('click');
   formHandler.searchForm('', 'Zagreb'); // Remove after testing
 }
 
