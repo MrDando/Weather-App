@@ -7,6 +7,7 @@ const formHandler = (function formHandler() {
   let results = [];
   let units = 'metric';
   let location;
+  let locationName;
   let weatherData;
 
   function validateForm(query) {
@@ -22,17 +23,17 @@ const formHandler = (function formHandler() {
     } else {
       units = 'metric';
     }
-    const name = getName(location);
-    PubSub.publish('RENDER WEATHER DATA', [name, weatherData, units]);
+    PubSub.publish('RENDER WEATHER DATA', [locationName, weatherData, units]);
   }
 
   async function requestWeather(lat, lng, name = null) {
+    if (name) {
+      locationName = name;
+    }
     const apiKey = '7e82125835d749e0e51d3420e0cdf1ed';
     weatherData = await getWeather(apiKey, lat, lng, 'metric');
-    if (name === null) {
-      name = getName(location);
-    }
-    PubSub.publish('RENDER WEATHER DATA', [name, weatherData, units]);
+
+    PubSub.publish('RENDER WEATHER DATA', [locationName, weatherData, units]);
   }
 
   async function searchForm() {
@@ -56,6 +57,7 @@ const formHandler = (function formHandler() {
   function formatLocation(title, data) {
     const { id } = data.dataset;
     location = results[id];
+    locationName = getName(location);
     const { lat } = location.geometry;
     const { lng } = location.geometry;
     requestWeather(lat, lng);
