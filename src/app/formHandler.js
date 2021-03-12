@@ -24,21 +24,18 @@ const formHandler = (function formHandler() {
     PubSub.publish('RENDER WEATHER DATA', [location, weatherData, units]);
   }
 
-  async function requestWeather() {
-    const { lat } = location.geometry;
-    const { lng } = location.geometry;
+  async function requestWeather(lat, lng, name = null) {
     const apiKey = '7e82125835d749e0e51d3420e0cdf1ed';
     weatherData = await getWeather(apiKey, lat, lng, 'metric');
-    PubSub.publish('RENDER WEATHER DATA', [location, weatherData, units]);
+    if (name) {
+      PubSub.publish('RENDER WEATHER DATA', [name, weatherData, units]);
+    } else {
+      PubSub.publish('RENDER WEATHER DATA', [location, weatherData, units]);
+    }
   }
 
-  async function searchForm(e, val) { // remove val parameter after testing
-    // temporary code. Remove after testing
-    let input = val;
-    if (!input) {
-      input = document.getElementById('search-input').value;
-    } // end of temp code
-    // input = document.getElementById('search-input').value;
+  async function searchForm() {
+    const input = document.getElementById('search-input').value;
     const valid = validateForm(input);
     if (valid) {
       const apiKey = '8f6b0328053f4228ab88381794a2a47f';
@@ -46,7 +43,9 @@ const formHandler = (function formHandler() {
       results = locations;
       if (results.length === 1) {
         location = results[0];
-        requestWeather();
+        const { lat } = location.geometry;
+        const { lng } = location.geometry;
+        requestWeather(lat, lng);
       } else {
         PubSub.publish('RENDER SEARCH RESULTS', locations);
       }
@@ -56,11 +55,13 @@ const formHandler = (function formHandler() {
   function formatLocation(title, data) {
     const { id } = data.dataset;
     location = results[id];
-    requestWeather();
+    const { lat } = location.geometry;
+    const { lng } = location.geometry;
+    requestWeather(lat, lng);
   }
 
   PubSub.subscribe('LOCATION SELECTED', formatLocation);
-  return { searchForm, switchUnits };
+  return { searchForm, switchUnits, requestWeather };
 }());
 
 export { formHandler as default };

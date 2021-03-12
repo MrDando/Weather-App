@@ -103,7 +103,12 @@ const displayController = (function displayController() {
 
       function renderLocationName() {
         const nameElement = document.getElementById('location-name');
-        nameElement.innerText = getName(location);
+        console.log(typeof (location));
+        if (typeof (location) === 'string') {
+          nameElement.innerText = location;
+        } else {
+          nameElement.innerText = getName(location);
+        }
       }
 
       function renderWeather() {
