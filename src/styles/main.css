@@ -48,6 +48,10 @@ main {
     flex-direction: column;
 }
 
+.center {
+    justify-content: center;
+}
+
 .card {
     background-color: var(--platinum);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -193,7 +197,6 @@ img.small-img {
 
 #current-conditions-container .intro {
     padding: 0.5em 1em;
-    justify-content: center;
 }
 
 #current-conditions-container .intro .name {
@@ -271,4 +274,14 @@ footer {
     background-color: var(--shadow-blue);
     margin-top: auto;
     margin-bottom: 0;
+    padding: 0.5em;
+}
+
+footer span {
+    margin-right: 0.6em;
+}
+
+#github-logo {
+    height: 20px;
+    width: auto;
 }
