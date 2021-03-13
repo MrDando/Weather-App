@@ -190,6 +190,20 @@ header .lower {
 
 main {
     background-color: var(--mint-cream);
+    position: relative;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.loading-screen {
+    position: absolute;
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    background-color:var(--spanish-gray);
+    opacity: 0.8;
 }
 
 .conditions img {

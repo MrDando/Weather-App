@@ -7,6 +7,7 @@ import getIPLocation from './app/IPlookup';
 
 function init() {
   console.log('initialized');
+
   const searchForm = document.querySelector('#search-wrapper form');
   searchForm.addEventListener('submit', formHandler.searchForm);
 

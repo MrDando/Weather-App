@@ -30,6 +30,7 @@ const formHandler = (function formHandler() {
     if (name) {
       locationName = name;
     }
+    PubSub.publish('TOGGLE LOADING SCREEN');
     const apiKey = '7e82125835d749e0e51d3420e0cdf1ed';
     weatherData = await getWeather(apiKey, lat, lng, 'metric');
 

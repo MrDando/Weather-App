@@ -64,6 +64,18 @@ const displayController = (function displayController() {
     results.forEach((item) => formatResult(item));
   }
 
+  function toggleLoadingScreen(title) {
+    const main = document.querySelector('main');
+    const loadingScreen = main.querySelector('.loading-screen');
+    loadingScreen.classList.toggle('hidden');
+
+    const currentConditions = main.querySelector('#current-conditions-container');
+    currentConditions.classList.toggle('hidden');
+
+    const forecast = main.querySelector('#forecast-table');
+    forecast.classList.toggle('hidden');
+  }
+
   function renderConditions(title, data) {
     const locationName = data[0];
     const weatherData = data[1];
@@ -321,9 +333,11 @@ const displayController = (function displayController() {
 
     renderCurrentConditions();
     renderDailyForecast();
+    setTimeout(() => { PubSub.publish('TOGGLE LOADING SCREEN'); }, 1000);
   }
   PubSub.subscribe('RENDER SEARCH RESULTS', renderSearch);
   PubSub.subscribe('RENDER WEATHER DATA', renderConditions);
+  PubSub.subscribe('TOGGLE LOADING SCREEN', toggleLoadingScreen);
 }());
 
 export { displayController as default };
