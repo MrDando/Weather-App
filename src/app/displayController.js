@@ -23,6 +23,7 @@ const displayController = (function displayController() {
       topDivElement.classList.add('top');
       topDivElement.classList.add('flex');
       bottomDivElement.classList.add('bottom');
+      bottomDivElement.classList.add('flex');
       const nameElement = document.createElement('h3');
       const typeElement = document.createElement('p');
       const descriptionElement = document.createElement('p');

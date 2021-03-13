@@ -7,8 +7,8 @@ import getIPLocation from './app/IPlookup';
 
 function init() {
   console.log('initialized');
-  const searchButton = document.getElementById('search-btn');
-  searchButton.addEventListener('click', formHandler.searchForm);
+  const searchForm = document.querySelector('#search-wrapper form');
+  searchForm.addEventListener('submit', formHandler.searchForm);
 
   const switchButton = document.getElementById('switch-span');
   switchButton.addEventListener('click', formHandler.switchUnits);

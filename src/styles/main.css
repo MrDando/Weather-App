@@ -70,22 +70,33 @@ header .lower {
     background-color: var(--shadow-blue);
 }
 
-#search-container {
+#search-wrapper {
+    margin-left: 90px;
+    width: 300px;
+    border-radius: 20px;
+    background-color: white;
     position: relative;
-    margin-left: 4em;
-    width: 40%;
 }
 
-#search-container form input {
-    width: 70%;
-    padding: 0.5em;
-    border-radius: 10px;
+#search-wrapper img {
+    padding-left:0.5em;
+    height: 20px;
+}
+
+#search-wrapper input{
+    width: 235px;
+    padding: 0.5em 1em 0.5em 1em;
+    border: none;
+}
+
+#search-wrapper input:focus {
+    outline: 0;
 }
 
 #search-results {
     position: absolute;
-    width: 70%;
-    margin-top: 1em;
+    width: 100%;
+    margin-top: 10px;
     z-index: 1;
     border-radius: 10px;
     overflow: hidden;
