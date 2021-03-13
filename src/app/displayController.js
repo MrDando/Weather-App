@@ -64,16 +64,28 @@ const displayController = (function displayController() {
     results.forEach((item) => formatResult(item));
   }
 
-  function toggleLoadingScreen(title) {
+  function showLoadingScreen() {
     const main = document.querySelector('main');
     const loadingScreen = main.querySelector('.loading-screen');
-    loadingScreen.classList.toggle('hidden');
+    loadingScreen.classList.remove('hidden');
 
     const currentConditions = main.querySelector('#current-conditions-container');
-    currentConditions.classList.toggle('hidden');
+    currentConditions.classList.add('hidden');
 
     const forecast = main.querySelector('#forecast-table');
-    forecast.classList.toggle('hidden');
+    forecast.classList.add('hidden');
+  }
+
+  function removeLoadingScreen() {
+    const main = document.querySelector('main');
+    const loadingScreen = main.querySelector('.loading-screen');
+    loadingScreen.classList.add('hidden');
+
+    const currentConditions = main.querySelector('#current-conditions-container');
+    currentConditions.classList.remove('hidden');
+
+    const forecast = main.querySelector('#forecast-table');
+    forecast.classList.remove('hidden');
   }
 
   function renderConditions(title, data) {
@@ -333,11 +345,12 @@ const displayController = (function displayController() {
 
     renderCurrentConditions();
     renderDailyForecast();
-    setTimeout(() => { PubSub.publish('TOGGLE LOADING SCREEN'); }, 1000);
+    setTimeout(() => { PubSub.publish('REMOVE LOADING SCREEN'); }, 1000);
   }
   PubSub.subscribe('RENDER SEARCH RESULTS', renderSearch);
   PubSub.subscribe('RENDER WEATHER DATA', renderConditions);
-  PubSub.subscribe('TOGGLE LOADING SCREEN', toggleLoadingScreen);
+  PubSub.subscribe('SHOW LOADING SCREEN', showLoadingScreen);
+  PubSub.subscribe('REMOVE LOADING SCREEN', removeLoadingScreen);
 }());
 
 export { displayController as default };
