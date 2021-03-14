@@ -362,12 +362,11 @@ const displayController = (function displayController() {
 
     renderCurrentConditions();
     renderDailyForecast();
-    setTimeout(() => { PubSub.publish('REMOVE LOADING SCREEN'); }, 1000);
+    setTimeout(() => { removeLoadingScreen(); }, 1000);
   }
   PubSub.subscribe('RENDER SEARCH RESULTS', renderSearch);
   PubSub.subscribe('RENDER WEATHER DATA', renderConditions);
   PubSub.subscribe('SHOW LOADING SCREEN', showLoadingScreen);
-  PubSub.subscribe('REMOVE LOADING SCREEN', removeLoadingScreen);
   PubSub.subscribe('SHOW ERROR MESSAGE', showErrorMessage);
   PubSub.subscribe('REMOVE ERROR MESSAGE', removeErrorMessage);
 }());
