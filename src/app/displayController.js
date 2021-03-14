@@ -2,6 +2,47 @@ import PubSub from 'pubsub-js';
 import getName from './helpers/getName';
 
 const displayController = (function displayController() {
+  function showLoadingScreen() {
+    const main = document.querySelector('main');
+    const loadingScreen = main.querySelector('.loading-screen');
+    loadingScreen.classList.remove('hidden');
+
+    const currentConditions = main.querySelector('#current-conditions-container');
+    currentConditions.classList.add('hidden');
+
+    const forecast = main.querySelector('#forecast-table');
+    forecast.classList.add('hidden');
+  }
+
+  function removeLoadingScreen() {
+    const main = document.querySelector('main');
+    const loadingScreen = main.querySelector('.loading-screen');
+    loadingScreen.classList.add('hidden');
+
+    const currentConditions = main.querySelector('#current-conditions-container');
+    currentConditions.classList.remove('hidden');
+
+    const forecast = main.querySelector('#forecast-table');
+    forecast.classList.remove('hidden');
+  }
+
+  function showErrorMessage(title, msg) {
+    const wrapper = document.querySelector('#search-wrapper');
+
+    const errorElementExists = wrapper.querySelector('.error');
+    if (!errorElementExists) {
+      const errorElement = document.createElement('small');
+      errorElement.classList.add('error');
+      errorElement.innerText = msg;
+      wrapper.appendChild(errorElement);
+    }
+  }
+
+  function removeErrorMessage() {
+    const errorElement = document.querySelector('.error');
+    if (errorElement) errorElement.remove();
+  }
+
   function renderSearch(title, results) {
     const container = document.getElementById('search-results');
 
@@ -62,47 +103,6 @@ const displayController = (function displayController() {
     }
 
     results.forEach((item) => formatResult(item));
-  }
-
-  function showLoadingScreen() {
-    const main = document.querySelector('main');
-    const loadingScreen = main.querySelector('.loading-screen');
-    loadingScreen.classList.remove('hidden');
-
-    const currentConditions = main.querySelector('#current-conditions-container');
-    currentConditions.classList.add('hidden');
-
-    const forecast = main.querySelector('#forecast-table');
-    forecast.classList.add('hidden');
-  }
-
-  function showErrorMessage(title, msg) {
-    const wrapper = document.querySelector('#search-wrapper');
-
-    const errorElementExists = wrapper.querySelector('.error');
-    if (!errorElementExists) {
-      const errorElement = document.createElement('small');
-      errorElement.classList.add('error');
-      errorElement.innerText = msg;
-      wrapper.appendChild(errorElement);
-    }
-  }
-
-  function removeErrorMessage() {
-    const errorElement = document.querySelector('.error');
-    if (errorElement) errorElement.remove();
-  }
-
-  function removeLoadingScreen() {
-    const main = document.querySelector('main');
-    const loadingScreen = main.querySelector('.loading-screen');
-    loadingScreen.classList.add('hidden');
-
-    const currentConditions = main.querySelector('#current-conditions-container');
-    currentConditions.classList.remove('hidden');
-
-    const forecast = main.querySelector('#forecast-table');
-    forecast.classList.remove('hidden');
   }
 
   function renderConditions(title, data) {
