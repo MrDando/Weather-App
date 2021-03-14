@@ -218,8 +218,8 @@ const displayController = (function displayController() {
       }
 
       function renderWind() {
-        function degToCard(value) {
-          value = parseFloat(value);
+        function degToCard(val) {
+          let value = parseFloat(val);
           if (value <= 11.25) return 'N';
           value -= 11.25;
           const allDirections = ['NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N'];

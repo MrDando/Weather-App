@@ -5,7 +5,6 @@ async function getLocations(apiKey, query, filters = null) {
     const response = await fetch(url);
     const data = await response.json();
 
-    console.log('Total results: ', data.total_results);
     return data.results;
   }
 
