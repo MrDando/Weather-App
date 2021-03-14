@@ -90,7 +90,7 @@ const displayController = (function displayController() {
 
   function removeErrorMessage() {
     const errorElement = document.querySelector('.error');
-    errorElement.remove();
+    if (errorElement) errorElement.remove();
   }
 
   function removeLoadingScreen() {
