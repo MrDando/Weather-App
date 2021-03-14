@@ -12,8 +12,10 @@ const formHandler = (function formHandler() {
 
   function validateForm(query) {
     if (query === '') {
+      PubSub.publish('SHOW ERROR MESSAGE', 'Please enter a location name');
       return false;
     }
+    PubSub.publish('REMOVE ERROR MESSAGE');
     return true;
   }
 
@@ -44,6 +46,9 @@ const formHandler = (function formHandler() {
       const apiKey = '8f6b0328053f4228ab88381794a2a47f';
       const locations = await getLocations(apiKey, input, ['city', 'village']);
       results = locations;
+      if (results.length === 0) {
+        PubSub.publish('SHOW ERROR MESSAGE', 'No valid locations found');
+      }
       if (results.length === 1) {
         location = results[0];
         const { lat } = location.geometry;

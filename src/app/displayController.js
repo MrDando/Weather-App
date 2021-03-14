@@ -76,6 +76,23 @@ const displayController = (function displayController() {
     forecast.classList.add('hidden');
   }
 
+  function showErrorMessage(title, msg) {
+    const wrapper = document.querySelector('#search-wrapper');
+
+    const errorElementExists = wrapper.querySelector('.error');
+    if (!errorElementExists) {
+      const errorElement = document.createElement('small');
+      errorElement.classList.add('error');
+      errorElement.innerText = msg;
+      wrapper.appendChild(errorElement);
+    }
+  }
+
+  function removeErrorMessage() {
+    const errorElement = document.querySelector('.error');
+    errorElement.remove();
+  }
+
   function removeLoadingScreen() {
     const main = document.querySelector('main');
     const loadingScreen = main.querySelector('.loading-screen');
@@ -351,6 +368,8 @@ const displayController = (function displayController() {
   PubSub.subscribe('RENDER WEATHER DATA', renderConditions);
   PubSub.subscribe('SHOW LOADING SCREEN', showLoadingScreen);
   PubSub.subscribe('REMOVE LOADING SCREEN', removeLoadingScreen);
+  PubSub.subscribe('SHOW ERROR MESSAGE', showErrorMessage);
+  PubSub.subscribe('REMOVE ERROR MESSAGE', removeErrorMessage);
 }());
 
 export { displayController as default };
