@@ -4,6 +4,9 @@ A simple weather app made for The Odin Project Fullstack Javascript path.
 
 [Live APP](https://mrdando.github.io/Weather-App/)
 
+![alt text](https://github.com/MrDando/Weather-App/blob/main/preview.png?raw=true)
+
+
 ## APIs
 
 The webpage uses 3 different APIs.
