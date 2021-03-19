@@ -51,6 +51,7 @@ const formHandler = (function formHandler() {
       }
       if (results.length === 1) {
         location = results[0];
+        locationName = getName(location);
         const { lat } = location.geometry;
         const { lng } = location.geometry;
         requestWeather(lat, lng);
