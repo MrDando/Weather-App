@@ -206,15 +206,36 @@ const displayController = (function displayController() {
         const { rain } = weatherData.current;
         const { snow } = weatherData.current;
 
-        if (rain && snow) {
-          precipitationElement.innerText = `${Math.round((rain['1h'] + snow['1h']) * 10) / 10} mm`;
-        } else if (rain) {
-          precipitationElement.innerText = `${Math.round(rain['1h'] * 10) / 10} mm`;
-        } else if (snow) {
-          precipitationElement.innerText = `${Math.round(snow['1h'] * 10) / 10} mm`;
-        } else {
-          precipitationElement.innerText = '0 mm';
+        function renderPrecipitationMetric () {
+          if (rain && snow) {
+            precipitationElement.innerText = `${Math.round((rain['1h'] + snow['1h']) * 10) / 10} mm`;
+          } else if (rain) {
+            precipitationElement.innerText = `${Math.round(rain['1h'] * 10) / 10} mm`;
+          } else if (snow) {
+            precipitationElement.innerText = `${Math.round(snow['1h'] * 10) / 10} mm`;
+          } else {
+            precipitationElement.innerText = '0 mm';
+          }
         }
+
+        function renderPrecipitationImperial () {
+          if (rain && snow) {
+            precipitationElement.innerText = `${Math.round(((rain['1h'] + snow['1h']) + 0.03937008) * 100) / 100} in`;
+          } else if (rain) {
+            precipitationElement.innerText = `${Math.round((rain['1h'] * 0.03937008) * 100) / 100} in`;
+          } else if (snow) {
+            precipitationElement.innerText = `${Math.round((snow['1h'] * 0.03937008) * 100) / 100} in`;
+          } else {
+            precipitationElement.innerText = '0 in';
+          }
+        }
+
+        if (units === 'metric') {
+          renderPrecipitationMetric()
+        } else {
+          renderPrecipitationImperial()
+        }
+        
       }
 
       function renderWind() {
@@ -228,7 +249,13 @@ const displayController = (function displayController() {
         }
 
         const windElement = container.querySelector('.wind .value');
-        const windSpeed = `${Math.round(currentWeather.wind_speed)} m/s`;
+        let windSpeed = currentWeather.wind_speed;
+
+        if (units === 'metric') {
+          windSpeed = `${Math.round(windSpeed * 3.6)} kmh`
+        } else {
+          windSpeed = `${Math.round(windSpeed * 2.23694)} mph`;
+        }
 
         const windDeg = currentWeather.wind_deg;
         const windDirection = degToCard(windDeg);
@@ -323,12 +350,18 @@ const displayController = (function displayController() {
           precipitation = 0;
         }
 
-        if (precipitation > 10) {
-          precipitation = Math.round(precipitation);
+        if (units === 'metric') {
+          if (precipitation > 10) {
+            precipitation = Math.round(precipitation);
+          } else {
+            precipitation = Math.round(precipitation * 10) / 10;
+          }
+          precipitationSpan.innerText = `${precipitation} mm`;
         } else {
-          precipitation = Math.round(precipitation * 10) / 10;
+          precipitation = Math.round((precipitation * 0.0393701) * 100)/ 100
+          precipitationSpan.innerText = `${precipitation} in`;
         }
-        precipitationSpan.innerText = `${precipitation} mm`;
+        
 
         precipitationTd.appendChild(precipitationSpan);
         wrapperDiv.appendChild(precipitationTd);
@@ -338,7 +371,11 @@ const displayController = (function displayController() {
         const windTd = document.createElement('td');
         const windSpan = document.createElement('span');
 
-        windSpan.innerText = `${Math.round(wind)} m/s`;
+        if (units === 'metric') {
+          windSpan.innerText = `${Math.round(wind * 3.6)} kmh`
+        } else {
+          windSpan.innerText = `${Math.round(wind * 2.23694)} mph`;
+        }
 
         windTd.appendChild(windSpan);
         wrapperDiv.appendChild(windTd);
