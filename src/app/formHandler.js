@@ -43,7 +43,7 @@ const formHandler = (function formHandler() {
     const input = document.getElementById('search-input').value;
     const valid = validateForm(input);
     if (valid) {
-      const apiKey = '8f6b0328053f4228ab88381794a2a47f';
+      const apiKey = '72d6f012afc04713b40f11651248232c';
       const locations = await getLocations(apiKey, input, ['city', 'village']);
       results = locations;
       if (results.length === 0) {
